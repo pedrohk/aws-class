@@ -35,4 +35,19 @@ public class SnsController {
             @RequestParam String message) {
         return ResponseEntity.ok(service.sendSms(phoneNumber, message));
     }
+
+    @PostMapping("/subscribe-sqs")
+    public ResponseEntity<String> subscribeSqs(@RequestParam String queueArn) {
+        return ResponseEntity.ok(service.subscribeSqs(queueArn));
+    }
+
+    @PostMapping("/subscribe-lambda")
+    public ResponseEntity<String> subscribeLambda(@RequestParam String lambdaArn) {
+        return ResponseEntity.ok(service.subscribeLambda(lambdaArn));
+    }
+
+    @PostMapping("/subscribe-email-json")
+    public ResponseEntity<String> subscribeEmailJson(@RequestParam String email) {
+        return ResponseEntity.ok(service.subscribeEmailJson(email));
+    }
 }

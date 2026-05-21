@@ -17,7 +17,7 @@ public class SnsService {
     private final SnsClient snsClient;
 
     private static final String TOPIC_ARN =
-            "arn:aws:sns:sa-east-1:447197207642:academia-aws-aula-8";
+            "arn:aws:sns:sa-east-1:678807498716:mytopicaula8";
 
     public SnsService(SnsClient snsClient) {
         this.snsClient = snsClient;
@@ -91,5 +91,35 @@ public class SnsService {
         log.info("SMS enviado para {}. MessageId: {}", phoneNumber, response.messageId());
 
         return "SMS enviado. ID: " + response.messageId();
+    }
+
+    public String subscribeSqs(String queueArn) {
+        SubscribeRequest request = SubscribeRequest.builder()
+                .topicArn(TOPIC_ARN)
+                .protocol("sqs")
+                .endpoint(queueArn)
+                .build();
+        SubscribeResponse response = snsClient.subscribe(request);
+        return "Subscrição SQS criada. ARN: " + response.subscriptionArn();
+    }
+
+    public String subscribeLambda(String lambdaArn) {
+        SubscribeRequest request = SubscribeRequest.builder()
+                .topicArn(TOPIC_ARN)
+                .protocol("lambda")
+                .endpoint(lambdaArn)
+                .build();
+        SubscribeResponse response = snsClient.subscribe(request);
+        return "Subscrição Lambda criada. ARN: " + response.subscriptionArn();
+    }
+
+    public String subscribeEmailJson(String email) {
+        SubscribeRequest request = SubscribeRequest.builder()
+                .topicArn(TOPIC_ARN)
+                .protocol("email-json")
+                .endpoint(email)
+                .build();
+        SubscribeResponse response = snsClient.subscribe(request);
+        return "Subscrição E-mail JSON criada. Verifique a caixa de entrada para confirmar.";
     }
 }
