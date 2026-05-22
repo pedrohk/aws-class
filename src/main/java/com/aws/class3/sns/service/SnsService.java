@@ -27,7 +27,7 @@ public class SnsService {
 
         PublishRequest request = PublishRequest.builder()
                 .topicArn(TOPIC_ARN)
-                .subject("Aviso da academia AWS")
+                .subject("Pedro do AWS")
                 .message(message)
                 .build();
 
